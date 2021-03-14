@@ -1,53 +1,46 @@
 import csv
-from treelib import Node, Tree
-
-#Label has to be written
-entity = input("Please enter the entity label you want to investigate:\n")
-
-#function that gets the LABEL from the ID
+from anytree import Node, RenderTree
 
 
+entity = input("Please enter the entity label you want to investigate:\n")  # Label has to be written
 
-def get_label_from_ID(one_ID):
-
-    with open("onto_x.csv") as csvfile:
-        reader = csv.reader(csvfile)
-        table_parents = []
-        for row in reader:
-            if one_ID == row[0]:
-                table_parents.append(row[1])
-        print(table_parents)
-    return table_parents
-
-parents = [] #Where the parents IDs are to be stored
-
+# This is Adam- The tree's root is constructed after this
 with open("onto_x.csv") as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         if entity == row[1]:
-            arbre = Tree()
-            arbre.create_node(entity) #first node
+            row[1] = Node(str(row[1]))
+            # print("Node exists")
 
-            #extracting parent
+
+# function that gets the LABEL from the ID
+def get_label_from_id(One_ID):
+    with open("onto_x.csv") as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            if One_ID == row[0]:
+                a_parents_label = row[1]
+                print(a_parents_label)
+    return a_parents_label
+
+parents = []  # Where the parents IDs are to be stored
+with open("onto_x.csv") as csvfile:
+    reader = csv.reader(csvfile)
+    for row in reader:
+        if entity == row[1]:
+            # extracting parent
             parents.append(row[2])
 
+# extracting direct parents and seperate their class ID
 
-
-
-
-    #extracting direct parents and seperate their class ID
-
-    print("The whole C3 is: ",parents)
-    split_parents = parents[0].split("|")
-    print("The direct-parents IDs are: ",split_parents)
-    for i in range(len(split_parents)):
-        weldih = get_label_from_ID(split_parents[i])
-
-
-
-
-
-
+print("The parents are: ", parents)
+split_parents = parents[0].split("|")
+print("The direct-parents IDs are: ", split_parents)
+parents_labels = []
+for i in range(len(split_parents)):
+    label = get_label_from_id(split_parents[i])
+    parents_labels.append(str(label))
+print(parents_labels)
 
 
 
