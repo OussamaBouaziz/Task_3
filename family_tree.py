@@ -13,14 +13,37 @@ with open("onto_x.csv") as csvfile:
 
 
 # function that gets the LABEL from the ID
-def get_label_from_id(One_ID):
+def get_label_from_id(one_id):
     with open("onto_x.csv") as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            if One_ID == row[0]:
+            if one_id == row[0]:
                 a_parents_label = row[1]
                 print(a_parents_label)
     return a_parents_label
+
+
+def all_grands(table_parents_labels):
+    print("AHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    grands = []  # Where the parents IDs are to be stored
+    with open("onto_x.csv") as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            for i in range(len(table_parents_labels)):
+                if table_parents_labels[i] == row[1]:
+                    print("d5alna ", i ,"marrs lil if")
+                    # extracting parent
+                    grands.append(row[2])
+                    split_grands = grands[0].split("|")
+                    print("The direct-parents IDs are: ", split_grands)
+                    grands_labels = []
+                    for j in range(len(split_grands)):
+                        label = get_label_from_id(split_grands[i])
+                        grands_labels.append(str(label))
+                        #grands_labels[i] = Node(grands_labels[i], parent=table_parents_labels[i])
+                        print(grands_labels[i],"AYA kifech")
+
+
 
 parents = []  # Where the parents IDs are to be stored
 with open("onto_x.csv") as csvfile:
@@ -36,19 +59,18 @@ with open("onto_x.csv") as csvfile:
 
 # print("The parents are: ", parents)
 split_parents = parents[0].split("|")
-#print("The direct-parents IDs are: ", split_parents)
+# print("The direct-parents IDs are: ", split_parents)
 parents_labels = []
 for i in range(len(split_parents)):
     label = get_label_from_id(split_parents[i])
+    parents_labels.append(label)
+
     parents_labels.append(str(label))
-    parents_labels[i] = Node(parents_labels[i], parent=Adam)
+
+
+
+all_grands(parents_labels)
 
 print("The parents labelings are", parents_labels)
-print("----------------")
-print(Adam)
-print(RenderTree(Adam))
-
-
-
-
-
+#print("----------------")
+#print(RenderTree(Adam))
