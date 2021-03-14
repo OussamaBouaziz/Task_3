@@ -31,17 +31,21 @@ def all_grands(table_parents_labels):
         for row in reader:
             for i in range(len(table_parents_labels)):
                 if table_parents_labels[i] == row[1]:
+                    print(table_parents_labels[i], ">>>>>>>> tlawej 3la hetha")
                     print("d5alna ", i ,"marrs lil if")
                     # extracting parent
                     grands.append(row[2])
+                    print(grands)
+                    grands_labels = []
+
                     split_grands = grands[0].split("|")
                     print("The direct-parents IDs are: ", split_grands)
-                    grands_labels = []
+
                     for j in range(len(split_grands)):
-                        label = get_label_from_id(split_grands[i])
+                        label = get_label_from_id(split_grands[j])
                         grands_labels.append(str(label))
-                        #grands_labels[i] = Node(grands_labels[i], parent=table_parents_labels[i])
-                        print(grands_labels[i],"AYA kifech")
+                        #grands_labels[j] = Node(grands_labels[j], parent=table_parents_labels[i])
+                        print(grands_labels[j],"AYA kifech")
 
 
 
