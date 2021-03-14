@@ -9,8 +9,7 @@ with open("onto_x.csv") as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         if entity == row[1]:
-            row[1] = Node(str(row[1]))
-            # print("Node exists")
+            print("The labeling you are looking for exists")
 
 
 # function that gets the LABEL from the ID
@@ -30,17 +29,26 @@ with open("onto_x.csv") as csvfile:
         if entity == row[1]:
             # extracting parent
             parents.append(row[2])
+            Adam = Node(str(row[1]))
 
 # extracting direct parents and seperate their class ID
 
-print("The parents are: ", parents)
+
+# print("The parents are: ", parents)
 split_parents = parents[0].split("|")
-print("The direct-parents IDs are: ", split_parents)
+#print("The direct-parents IDs are: ", split_parents)
 parents_labels = []
 for i in range(len(split_parents)):
     label = get_label_from_id(split_parents[i])
     parents_labels.append(str(label))
-print(parents_labels)
+    parents_labels[i] = Node(parents_labels[i], parent=Adam)
+
+print("The parents labelings are", parents_labels)
+print("----------------")
+print(Adam)
+print(RenderTree(Adam))
+
+
 
 
 
