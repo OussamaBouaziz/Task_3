@@ -8,8 +8,9 @@ entity = input("Please enter the entity label you want to investigate:\n")  # La
 with open("onto_x.csv") as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
-        if entity == row[1]:
+        if entity == row[1]:# gib 0 an um ID zu finden
             print("The labeling you are looking for exists")
+            # a_parents_label = row[1]
 
 
 # function that gets the LABEL from the ID
@@ -23,14 +24,19 @@ def get_label_from_id(one_id):
     return a_parents_label
 
 
-def all_grands(table_parents_labels):
+def all_grands(first_node,table_parents_labels):
     print("AHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
     grands = []  # Where the parents IDs are to be stored
     with open("onto_x.csv") as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            for i in range(len(table_parents_labels)):
-                if table_parents_labels[i] == row[1]:
+            for i in range(len(table_parents_labels)):# for el in table_parents_labels:
+
+                if table_parents_labels[i] == row[1]: #if el == row[1]
+
+                    node_parent = Node(str(table_parents_labels[i]), parent= first_node)
+
                     print(table_parents_labels[i], ">>>>>>>> tlawej 3la hetha")
                     print("d5alna ", i ,"marrs lil if")
                     # extracting parent
@@ -38,25 +44,29 @@ def all_grands(table_parents_labels):
                     print(grands)
                     grands_labels = []
 
-                    split_grands = grands[0].split("|")
+                    split_grands = grands[0].split("|") # The grands table doesn't have just one element.
                     print("The direct-parents IDs are: ", split_grands)
 
                     for j in range(len(split_grands)):
                         label = get_label_from_id(split_grands[j])
                         grands_labels.append(str(label))
-                        #grands_labels[j] = Node(grands_labels[j], parent=table_parents_labels[i])
+
+                        new_node = Node(str(grands_labels[j]), parent=node_parent)
+
                         print(grands_labels[j],"AYA kifech")
+
 
 
 
 parents = []  # Where the parents IDs are to be stored
 with open("onto_x.csv") as csvfile:
-    reader = csv.reader(csvfile)
+    reader = csv.reader(csvfile) # muss man nicht jedes mal machen
     for row in reader:
         if entity == row[1]:
             # extracting parent
             parents.append(row[2])
             Adam = Node(str(row[1]))
+
 
 # extracting direct parents and seperate their class ID
 
@@ -69,12 +79,8 @@ for i in range(len(split_parents)):
     label = get_label_from_id(split_parents[i])
     parents_labels.append(label)
 
-    parents_labels.append(str(label))
-
-
-
-all_grands(parents_labels)
-
+all_grands(Adam, parents_labels)
+print(RenderTree(Adam))
 print("The parents labelings are", parents_labels)
 #print("----------------")
 #print(RenderTree(Adam))
