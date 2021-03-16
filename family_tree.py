@@ -4,15 +4,6 @@ from anytree import Node, RenderTree, AsciiStyle, PreOrderIter
 
 entity = input("Please enter the entity label you want to investigate:\n")  # Label has to be written
 
-# This is Adam- The tree's root is constructed after this
-with open("onto_x.csv") as csvfile:
-    reader = csv.reader(csvfile)
-    for row in reader:
-        if entity == row[1]:# gib 0 an um ID zu finden
-            print("The labeling you are looking for exists")
-            # a_parents_label = row[1]
-
-
 # function that gets the LABEL from the ID
 def get_label_from_id(one_id):
     with open("onto_x.csv") as csvfile:
@@ -46,6 +37,7 @@ def all_grands(first_node,table_parents_labels):
                     print(grands , "DOES THIS HAVE ONE ELEMENT ?")
                     grands_labels = []
                     node_parent = Node(str(table_parents_labels[i]), parent=first_node)
+                    final_dictionary.update({str(table_parents_labels[i]): node_parent.depth} )
 
                     for k in range(len(grands)):
                         split_grands = grands[k].split("|") # The grands table doesn't have just one element.
@@ -57,8 +49,13 @@ def all_grands(first_node,table_parents_labels):
                         grands_labels.append(str(label))
                         new_node = Node(str(grands_labels[j]), parent=node_parent)
 
-                        print(grands_labels,"AYA kifech")
                         print(new_node.depth, "3oooooooooom9")
+
+                        final_dictionary.update({str(grands_labels[j]): new_node.depth})
+
+                        print(final_dictionary,"resultaaaaaaaaaaat")
+
+
 
 
 
@@ -72,9 +69,7 @@ with open("onto_x.csv") as csvfile:
             parents.append(row[2])
             Adam = Node(str(row[1]))
 
-
-# extracting direct parents and seperate their class ID
-
+final_dictionary = {}
 
 # print("The parents are: ", parents)
 split_parents = parents[0].split("|")
