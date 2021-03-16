@@ -1,6 +1,7 @@
 import csv
 from anytree import Node, RenderTree, AsciiStyle
 import pprint
+import operator
 
 
 entity = input("Please enter the entity label you want to investigate:\n")  # Label has to be written
@@ -26,7 +27,7 @@ def looking_for_brothers_and_sisters(from_parents_table):
                 bro_sis_labels.append(row[1])
 
         for i in range(len(bro_sis_labels)):
-            siblings_dictionary.update({str(bro_sis_labels[i]): "0"})
+            siblings_dictionary.update({str(bro_sis_labels[i]): 0})
 
     return siblings_dictionary
 
@@ -66,10 +67,9 @@ def all_grands(first_node,table_parents_labels):
 
                         final_dictionary.update({str(grands_labels[j]): new_node.depth})
 
-                        formal_dictionary = pprint.PrettyPrinter(width=10)
-                        formal_dictionary.pprint(final_dictionary)
 
-    return formal_dictionary
+
+    return final_dictionary
 
 
 
@@ -92,7 +92,18 @@ with open("onto_x.csv") as csvfile:
 final_dictionary = {}
 # print(looking_for_brothers_and_sisters(parents))
 
-print("This is my final answer ", final_dictionary.update(looking_for_brothers_and_sisters(parents)))
+#print( final_dictionary.update(looking_for_brothers_and_sisters(parents)))
+
+
+final_dictionary.update(looking_for_brothers_and_sisters(parents))
+
+
+
+
+
+
+
+
 
 # print("The parents are: ", parents)
 split_parents = parents[0].split("|")
@@ -105,6 +116,14 @@ for i in range(len(split_parents)):
 all_grands(Adam, parents_labels)
 
 print(RenderTree(Adam, style=AsciiStyle()).by_attr())
+
+sorted_formal_dict = sorted(final_dictionary.items(), key=lambda x: x[1], reverse=True)
+formal_dictionary = pprint.PrettyPrinter(width=60)
+formal_dictionary.pprint(sorted_formal_dict)
+
+
+
+
 
 
 
