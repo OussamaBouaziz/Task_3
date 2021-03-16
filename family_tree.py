@@ -1,5 +1,5 @@
 import csv
-from anytree import Node, RenderTree
+from anytree import Node, RenderTree, AsciiStyle, PreOrderIter
 
 
 entity = input("Please enter the entity label you want to investigate:\n")  # Label has to be written
@@ -27,33 +27,37 @@ def get_label_from_id(one_id):
 def all_grands(first_node,table_parents_labels):
     print("AHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 
+    first_node.is_root
+
     grands = []  # Where the parents IDs are to be stored
+
     with open("onto_x.csv") as csvfile:
         reader = csv.reader(csvfile)
+
         for row in reader:
             for i in range(len(table_parents_labels)):# for el in table_parents_labels:
 
                 if table_parents_labels[i] == row[1]: #if el == row[1]
 
                     node_parent = Node(str(table_parents_labels[i]), parent= first_node)
+                    #   print(table_parents_labels[i] )
+                    print("if node is visited ", i + 1 ,"Times")
 
-                    print(table_parents_labels[i], ">>>>>>>> tlawej 3la hetha")
-                    print("d5alna ", i ,"marrs lil if")
-                    # extracting parent
                     grands.append(row[2])
-                    print(grands)
+                    print(grands , "DOES THIS HAVE ONE ELEMENT ?")
                     grands_labels = []
 
-                    split_grands = grands[0].split("|") # The grands table doesn't have just one element.
-                    print("The direct-parents IDs are: ", split_grands)
+        for k in range(len(grands)):
+            split_grands = grands[k].split("|") # The grands table doesn't have just one element.
+            print("The direct-parents IDs are: ", split_grands)
 
-                    for j in range(len(split_grands)):
-                        label = get_label_from_id(split_grands[j])
-                        grands_labels.append(str(label))
+            for j in range(len(split_grands)):
+                label = get_label_from_id(split_grands[j])
+                grands_labels.append(str(label))
 
-                        new_node = Node(str(grands_labels[j]), parent=node_parent)
+                new_node = Node(str(grands_labels[j]), parent=node_parent)
 
-                        print(grands_labels[j],"AYA kifech")
+                print(grands_labels,"AYA kifech")
 
 
 
@@ -80,7 +84,9 @@ for i in range(len(split_parents)):
     parents_labels.append(label)
 
 all_grands(Adam, parents_labels)
-print(RenderTree(Adam))
+print(RenderTree(Adam, style=AsciiStyle()).by_attr())
+
+
 print("The parents labelings are", parents_labels)
 #print("----------------")
 #print(RenderTree(Adam))
