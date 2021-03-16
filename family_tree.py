@@ -1,5 +1,6 @@
 import csv
-from anytree import Node, RenderTree, AsciiStyle, PreOrderIter
+from anytree import Node, RenderTree, AsciiStyle
+import pprint
 
 
 entity = input("Please enter the entity label you want to investigate:\n")  # Label has to be written
@@ -15,10 +16,17 @@ def get_label_from_id(one_id):
     return a_parents_label
 
 
-def all_grands(first_node,table_parents_labels):
-    print("AHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+def looking_for_brothers_and_sisters(from_parents_table):
+    bro_sis_labels = []
+    with open("onto_x.csv") as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            if from_parents_table[0] == row[2]:
+                bro_sis_labels.append(row[1])
 
-    first_node.is_root
+    return bro_sis_labels
+
+def all_grands(first_node,table_parents_labels):
 
     grands = []  # Where the parents IDs are to be stored
 
@@ -32,12 +40,13 @@ def all_grands(first_node,table_parents_labels):
 
                     #   print(table_parents_labels[i] )
                     print("if node is visited ", i + 1 ,"Times")
+                    print(table_parents_labels, "HOWWWAAA WALLA lAAAA .. 7lili")
 
                     grands.append(row[2])
                     print(grands , "DOES THIS HAVE ONE ELEMENT ?")
                     grands_labels = []
                     node_parent = Node(str(table_parents_labels[i]), parent=first_node)
-                    final_dictionary.update({str(table_parents_labels[i]): node_parent.depth} )
+                    final_dictionary.update({str(table_parents_labels[i]): node_parent.depth})
 
                     for k in range(len(grands)):
                         split_grands = grands[k].split("|") # The grands table doesn't have just one element.
@@ -53,8 +62,10 @@ def all_grands(first_node,table_parents_labels):
 
                         final_dictionary.update({str(grands_labels[j]): new_node.depth})
 
-                        print(final_dictionary,"resultaaaaaaaaaaat")
+                        formal_dictionary = pprint.PrettyPrinter(width=10)
+                        formal_dictionary.pprint(final_dictionary)
 
+    return formal_dictionary
 
 
 
@@ -64,10 +75,15 @@ parents = []  # Where the parents IDs are to be stored
 with open("onto_x.csv") as csvfile:
     reader = csv.reader(csvfile) # muss man nicht jedes mal machen
     for row in reader:
-        if entity == row[1]:
+        if entity == row[0]:
             # extracting parent
             parents.append(row[2])
             Adam = Node(str(row[1]))
+
+    print(parents,"333333333333333333333333")
+
+    print(looking_for_brothers_and_sisters(parents), "brudiiiiis and schwestiiiiis !!!!")
+
 
 final_dictionary = {}
 
@@ -80,19 +96,15 @@ for i in range(len(split_parents)):
     parents_labels.append(label)
 
 all_grands(Adam, parents_labels)
+
 print(RenderTree(Adam, style=AsciiStyle()).by_attr())
 
 
-# print("The parents labelings are", parents_labels)
-print("Node are following !!!!!!!")
-
-
-
-    #print(NODES)
-    #print(type(NODES))
 
 
 
 
-#print("----------------")
-#print(RenderTree(Adam))
+
+
+
+
