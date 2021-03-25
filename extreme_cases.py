@@ -7,7 +7,8 @@ label_input = input()
 
 
 def get_line(string):   #to be applied for extreme cases null, www .. ,
-    ancestor = ""
+    father = ""
+
     with open("onto_x.csv") as csvfile:
         reader = csv.reader(csvfile)
         i=1
@@ -16,11 +17,12 @@ def get_line(string):   #to be applied for extreme cases null, www .. ,
             if string != row[1]:
                 i += 1
             else: break
+            ancestor = father.join(row[1])
+        print("The label is in the ", i, "th line", ancestor)
 
-        print("The label is in the ", i, "th line", ancestor.join(row[1]))
 
 
-        return (ancestor, i)
+    return (ancestor, i)
 
 get_line(label_input)
 print("The result is ", get_line(label_input)[0])
