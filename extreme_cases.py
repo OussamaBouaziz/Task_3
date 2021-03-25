@@ -22,20 +22,19 @@ def get_line(string):   #to be applied for extreme cases null, www .. ,
         print("the whole row is", row)
         print("The label is in the ", i, "th line", ancestor)
 
-    return (ancestor, i)
+    return (ancestor, i, row[2])
 
-get_line(label_input)
-# print("The result is ", get_line(label_input)[0])
+# get_line(label_input)
+# print("The result is ", get_line(label_input)[2])
 
 def extreme_or_not(string):
 
-    with open("onto_x.csv") as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            if row[2] == ("http://www.w3.org/2002/07/owl#Thing" or "null"):
-                print("the label is", get_line(string)[1])
+     if get_line(label_input)[2] == ("http://www.w3.org/2002/07/owl#Thing" or "null"):
+            print("the label is you should use is ", get_line(string)[1])
 
-#extreme_or_not(label)
+
+
+extreme_or_not(label_input)
 
 
 
