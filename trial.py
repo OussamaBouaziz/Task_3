@@ -21,6 +21,7 @@ def get_label_from_id(one_id):
 
 def get_parents(table_child):
     parents = []
+    all_of_them = []
     with open("onto_x.csv") as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
@@ -28,26 +29,11 @@ def get_parents(table_child):
                 if table_child[i] == row[0]:
                     parents.append(row[2])  # Construire le tableau des parents [de la case i du table_child[i] ]
                     split_parents = parents[0].split("|")
-            # print({row[Preferred Label]}, "this is a label")
-            print(split_parents, "those are the split parents")
+                    for j in range(len(split_parents)):
+                        print(split_parents, "Those are split parents")
+                    get_parents(split_parents)
 
-    return split_parents
 
-
-def extremes(table): # input is split_parents
-    parents_id = []
-    with open("onto_x.csv") as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            for i in range(len(table)):
-                if table[i] == ("http://www.w3.org/2002/07/owl#Thing" or "null"):
-                    parents_id.append(row[1])
-
-                else: parents_id.append(get_label_from_id(table[i]))
-
-    print(parents_id, "and this ")
-
-    return parents_id
 
 get_parents(first_one)
 # extremes(get_parents(first_one))
