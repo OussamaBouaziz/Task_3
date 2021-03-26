@@ -27,11 +27,14 @@ def get_parents(table_child):
         for row in reader:
             for i in range(len(table_child)):
                 if table_child[i] == row[0]:
+                    print(table_child, "if is visited for the ", i, "time" )
                     parents.append(row[2])  # Construire le tableau des parents [de la case i du table_child[i] ]
                     split_parents = parents[0].split("|")
+                    print("split parents of ", table_child[i], "are >>>>", split_parents )
                     for j in range(len(split_parents)):
-                        print(split_parents, "Those are split parents")
-                    get_parents(split_parents)
+                        print("We are now in the for LOOOOOOP<<<<<<<<", j)
+                        print(split_parents[j], "This is one parent")
+                        get_parents(split_parents)
 
 
 
