@@ -14,13 +14,15 @@ def get_line(string):   #to be applied for extreme cases null, www .. ,
         i=1
 
         for row in reader:
-            if string != row[1]:
+            if string != row[0]:
                 i += 1
+
             else: break
-        ancestor = father.join(row[1])
-        print("The ancestor <<<<<<<<<<<<<<<<<<<<<", ancestor)
-        print("the whole row is", row)
-        print("The label is in the ", i, "th line", ancestor)
+
+    ancestor = father.join(row[1])
+    print("The ancestor <<<<<<<<<<<<<<<<<<<<<", ancestor)
+    print("the whole row is", row)
+    print("The label is in the ", i, "th line", ancestor)
 
     return (ancestor, i, row[2])
 
