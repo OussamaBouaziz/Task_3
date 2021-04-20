@@ -32,17 +32,18 @@ def get_line(string):   #to be applied for extreme cases null, www .. ,
     print("the whole row is", row)
     print("The label is in the ", i, "th line", ancestor)
 
-    return (ancestor.split("|"), i)
+    return (ancestor.split("|"), i, row[1])
 
 
 def extreme_or_not(string):
     print("extreme cases now")
     for i in range(len(get_line(label_input)[0])):
         if (get_line(label_input)[0])[i] in "http://www.w3.org/2002/07/owl#Thing" or (get_line(label_input)[0]) in (None,""):
-            print("the label is you should use is ", get_line(string)[0])
-        else : print(("the parents are ", get_line(string)[0]))
+            print("the label is you should use is ", get_line(string)[2])
+        else : print("the parents are ", get_line(string)[0])
 
 def get_parents(table_child):
+    print("*****************************************")
     parents = []
     generation = 0
     all_of_them = []
@@ -68,6 +69,6 @@ def get_parents(table_child):
 
     return (generation)
 
-get_line(label_input)
+#get_line(label_input)
 get_parents(get_line(label_input)[0])
-extreme_or_not(label_input)
+#extreme_or_not(label_input)
